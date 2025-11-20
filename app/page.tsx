@@ -466,7 +466,7 @@ function CTASection() {
 
             >
 
-              <Link href="/pricing">
+              <Link href="/signin">
 
                 Get Your Website <MoveRight className="w-4 h-4" />
 
@@ -486,7 +486,7 @@ function CTASection() {
 
             >
 
-              <Link href="/signin">
+              <Link href="/pricing">
 
                 See Pricing <Calendar className="w-4 h-4" />
 
