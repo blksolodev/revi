@@ -64,7 +64,7 @@ function Hero() {
 
           <div>
 
-            <Button variant="secondary" size="sm" className="gap-4 bg-gradient-to-r from-blue-900 to-purple-900 text-white border-0">
+            <Button variant="secondary" size="sm" className="gap-4 bg-purple-600 text-white border-0 hover:bg-purple-700">
 
               Introducing Revi AI <MoveRight className="w-4 h-4" />
 
@@ -76,7 +76,7 @@ function Hero() {
 
             <h1 className="text-5xl md:text-7xl max-w-4xl tracking-tighter text-center font-regular">
 
-              <span className="bg-gradient-to-r from-blue-900 to-purple-900 bg-clip-text text-transparent font-semibold">We build</span>
+              <span className="text-purple-600 font-semibold">We build</span>
 
               <span className="relative flex w-full justify-center overflow-hidden text-center md:pb-4 md:pt-1">
 
@@ -88,7 +88,7 @@ function Hero() {
 
                     key={index}
 
-                    className="absolute font-semibold bg-gradient-to-r from-blue-900 to-purple-900 bg-clip-text text-transparent"
+                    className="absolute font-semibold text-purple-600"
 
                     initial={{ opacity: 0, y: "-100" }}
 
@@ -144,7 +144,7 @@ function Hero() {
 
           <div className="flex flex-row gap-3">
 
-            <Button size="lg" className="gap-4 bg-gradient-to-r from-blue-900 to-purple-900 hover:from-blue-800 hover:to-purple-800 border-0" asChild>
+            <Button size="lg" className="gap-4 bg-purple-600 hover:bg-purple-700 border-0" asChild>
 
               <Link href="/pricing">
 
@@ -184,7 +184,7 @@ function DisplayCardsSection() {
 
     {
 
-      icon: <Sparkles className="size-4 text-blue-900" />,
+      icon: <Sparkles className="size-4 text-purple-600" />,
 
       title: "Custom Design",
 
@@ -192,9 +192,9 @@ function DisplayCardsSection() {
 
       date: "Mobile-responsive",
 
-      iconClassName: "text-blue-900",
+      iconClassName: "text-purple-600",
 
-      titleClassName: "bg-gradient-to-r from-blue-900 to-purple-900 bg-clip-text text-transparent",
+      titleClassName: "text-purple-600",
 
       className:
 
@@ -204,7 +204,7 @@ function DisplayCardsSection() {
 
     {
 
-      icon: <Zap className="size-4 text-purple-900" />,
+      icon: <Zap className="size-4 text-purple-600" />,
 
       title: "Professional Development",
 
@@ -212,9 +212,9 @@ function DisplayCardsSection() {
 
       date: "Built for growth",
 
-      iconClassName: "text-purple-900",
+      iconClassName: "text-purple-600",
 
-      titleClassName: "bg-gradient-to-r from-blue-900 to-purple-900 bg-clip-text text-transparent",
+      titleClassName: "text-purple-600",
 
       className:
 
@@ -224,7 +224,7 @@ function DisplayCardsSection() {
 
     {
 
-      icon: <TrendingUp className="size-4 text-purple-900" />,
+      icon: <TrendingUp className="size-4 text-purple-600" />,
 
       title: "Growth Features",
 
@@ -232,9 +232,9 @@ function DisplayCardsSection() {
 
       date: "Attract more customers",
 
-      iconClassName: "text-purple-900",
+      iconClassName: "text-purple-600",
 
-      titleClassName: "bg-gradient-to-r from-blue-900 to-purple-900 bg-clip-text text-transparent",
+      titleClassName: "text-purple-600",
 
       className:
 
@@ -290,7 +290,7 @@ function FeaturesSection() {
 
     {
 
-      icon: <Sparkles className="w-10 h-10 text-blue-900" />,
+      icon: <Sparkles className="w-10 h-10 text-purple-600" />,
 
       title: "Custom Website Design",
 
@@ -302,7 +302,7 @@ function FeaturesSection() {
 
     {
 
-      icon: <Zap className="w-10 h-10 text-purple-900" />,
+      icon: <Zap className="w-10 h-10 text-purple-600" />,
 
       title: "Fast & SEO-Optimized",
 
@@ -314,7 +314,7 @@ function FeaturesSection() {
 
     {
 
-      icon: <Shield className="w-10 h-10 text-blue-900" />,
+      icon: <Shield className="w-10 h-10 text-purple-600" />,
 
       title: "Reliable & Secure",
 
@@ -326,7 +326,7 @@ function FeaturesSection() {
 
     {
 
-      icon: <Bot className="w-10 h-10 text-purple-900" />,
+      icon: <Bot className="w-10 h-10 text-purple-600" />,
 
       title: "AI Chat Assistant",
 
@@ -338,7 +338,7 @@ function FeaturesSection() {
 
     {
 
-      icon: <Calendar className="w-10 h-10 text-blue-900" />,
+      icon: <Calendar className="w-10 h-10 text-purple-600" />,
 
       title: "Smart Booking System",
 
@@ -350,7 +350,7 @@ function FeaturesSection() {
 
     {
 
-      icon: <BarChart className="w-10 h-10 text-purple-900" />,
+      icon: <BarChart className="w-10 h-10 text-purple-600" />,
 
       title: "Analytics & Insights",
 
@@ -432,7 +432,7 @@ function CTASection() {
 
   return (
 
-    <div className="w-full py-20 bg-gradient-to-r from-blue-900 to-purple-900 text-white">
+    <div className="w-full py-20 bg-purple-600 text-white">
 
       <div className="container mx-auto px-4">
 
@@ -460,7 +460,7 @@ function CTASection() {
 
               variant="secondary"
 
-              className="gap-2 bg-white text-blue-900 hover:bg-gray-100"
+              className="gap-2 bg-white text-purple-600 hover:bg-gray-100"
 
               asChild
 
@@ -480,7 +480,7 @@ function CTASection() {
 
               variant="outline"
 
-              className="gap-2 bg-transparent border-white text-white hover:bg-white hover:text-blue-900"
+              className="gap-2 bg-transparent border-white text-white hover:bg-white hover:text-purple-600"
 
               asChild
 
