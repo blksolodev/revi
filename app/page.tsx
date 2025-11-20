@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import { motion } from "framer-motion";
 
-import { MoveRight, Bot, Calendar, Zap, BarChart, Shield, Sparkles, TrendingUp } from "lucide-react";
+import { MoveRight, Bot, Calendar, Zap, BarChart, Shield, Sparkles, TrendingUp, Search } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -158,7 +158,7 @@ function Hero() {
 
               <Link href="/work">
 
-                Discover More <Calendar className="w-4 h-4" />
+                Discover More <Search className="w-4 h-4" />
 
               </Link>
 
