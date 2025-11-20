@@ -293,7 +293,7 @@ function DockBar() {
           variant="ghost"
           onClick={triggerOpen}
         >
-          <span className="truncate">Ask AI</span>
+          <span className="truncate">Ask Revi AI</span>
         </Button>
       </div>
     </footer>
