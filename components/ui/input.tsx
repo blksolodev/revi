@@ -11,6 +11,7 @@ const sizes = {
 };
 
 interface InputProps {
+  id?: string;
   placeholder?: string;
   size?: keyof typeof sizes;
   prefix?: React.ReactNode | string;
@@ -24,12 +25,13 @@ interface InputProps {
   onChange?: (value: string) => void;
   onFocus?: () => void;
   onBlur?: () => void;
-  ref?: React.RefObject<HTMLInputElement | null>;
+  ref?: React.RefObject<HTMLInputElement>;
   className?: string;
   wrapperClassName?: string;
 }
 
 export const Input = ({
+  id,
   placeholder,
   size = "medium",
   prefix,
@@ -89,6 +91,7 @@ export const Input = ({
           </div>
         )}
         <input
+          id={id}
           className={clsx(
             "w-full inline-flex appearance-none placeholder:text-gray-900 placeholder:opacity-70 outline-none",
             (size === "xSmall" || size === "mediumSmall") ? "px-2" : "px-3",

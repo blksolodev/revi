@@ -228,7 +228,7 @@ export function UserDashboard({
                 <Input
                   id="firstName"
                   value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  onChange={(value) => setFirstName(value)}
                   disabled={!isEditingProfile}
                   placeholder="John"
                 />
@@ -238,7 +238,7 @@ export function UserDashboard({
                 <Input
                   id="lastName"
                   value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  onChange={(value) => setLastName(value)}
                   disabled={!isEditingProfile}
                   placeholder="Doe"
                 />
@@ -249,7 +249,7 @@ export function UserDashboard({
               <Input
                 id="businessName"
                 value={businessName}
-                onChange={(e) => setBusinessName(e.target.value)}
+                onChange={(value) => setBusinessName(value)}
                 disabled={!isEditingProfile}
                 placeholder="Your Company Inc."
               />
