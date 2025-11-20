@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import './styles.css'
 import { ThemeProvider } from '@/components/theme-provider'
-// import { MorphPanel } from '@/components/ui/ai-input' // Temporarily disabled due to syntax error
+import { MorphPanel } from '@/components/ui/ai-input'
 
 export const metadata: Metadata = {
   title: 'Revi - Premium Web Development & Design',
@@ -23,12 +23,11 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
-          {/* AI Panel temporarily disabled - will fix syntax error */}
-          {/* <div className="fixed bottom-4 right-4 z-50 pointer-events-none">
+          <div className="fixed bottom-4 right-4 z-50 pointer-events-none">
             <div className="pointer-events-auto">
               <MorphPanel />
             </div>
-          </div> */}
+          </div>
         </ThemeProvider>
       </body>
     </html>
