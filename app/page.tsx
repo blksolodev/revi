@@ -43,7 +43,7 @@ function Hero() {
                 {titles.map((title, index) => (
                   <motion.span
                     key={index}
-                    className="absolute font-semibold bg-gradient-to-r from-blue-600 via-purple-600 to-purple-800 bg-clip-text text-transparent"
+                    className="absolute font-semibold bg-gradient-to-r from-blue-600 via-purple-600 to-purple-800 bg-clip-text text-transparent [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]"
                     initial={{ opacity: 0, y: "-100" }}
                     transition={{ type: "spring", stiffness: 50 }}
                     animate={
