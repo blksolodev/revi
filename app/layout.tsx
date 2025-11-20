@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import './globals.css'
+import './styles.css'
 import { ThemeProvider } from '@/components/theme-provider'
 // import { MorphPanel } from '@/components/ui/ai-input' // Temporarily disabled due to syntax error
 

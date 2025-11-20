@@ -135,9 +135,7 @@ module.exports = {
   		'focus-ring': 'var(--ds-focus-ring)'
   	}
   },
-    plugins: [require("tailwindcss-animate")]
-},
-  plugins: [addVariablesForColors],
+  plugins: [require("tailwindcss-animate"), addVariablesForColors],
 };
 
 // This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).
