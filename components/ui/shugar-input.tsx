@@ -11,22 +11,15 @@ const sizes = {
   large: "h-12 text-base rounded-lg",
 } as const
 
-interface InputProps {
-  placeholder?: string
+interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'onChange' | 'prefix'> {
   size?: keyof typeof sizes
   prefix?: React.ReactNode | string
   suffix?: React.ReactNode | string
   prefixStyling?: boolean | string
   suffixStyling?: boolean | string
-  disabled?: boolean
   error?: string | boolean
   label?: string
-  value?: string
   onChange?: (value: string) => void
-  onFocus?: () => void
-  onBlur?: () => void
-  ref?: React.RefObject<HTMLInputElement | null>
-  className?: string
   wrapperClassName?: string
 }
 
@@ -44,13 +37,12 @@ export const Input: React.FC<InputProps> = ({
   onChange,
   onFocus,
   onBlur,
-  ref,
   className,
   wrapperClassName,
   ...rest
 }) => {
   const [_value, setValue] = useState(value || "")
-  const _ref = ref ?? useRef<HTMLInputElement>(null)
+  const _ref = useRef<HTMLInputElement>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
