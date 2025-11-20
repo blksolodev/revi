@@ -91,7 +91,7 @@ export function Pricing({
           </Label>
         </label>
         <span className="ml-2 font-semibold">
-          Pay setup upfront <span className="text-primary">(Save 10%)</span>
+          Pay setup upfront <span className="bg-gradient-to-r from-blue-900 to-purple-900 bg-clip-text text-transparent font-semibold">(Save 10%)</span>
         </span>
       </div>
 
@@ -132,9 +132,9 @@ export function Pricing({
             )}
           >
             {plan.isPopular && (
-              <div className="absolute top-0 right-0 bg-primary py-0.5 px-2 rounded-bl-xl rounded-tr-xl flex items-center">
-                <Star className="text-primary-foreground h-4 w-4 fill-current" />
-                <span className="text-primary-foreground ml-1 font-sans font-semibold">
+              <div className="absolute top-0 right-0 bg-gradient-to-r from-blue-900 to-purple-900 py-0.5 px-2 rounded-bl-xl rounded-tr-xl flex items-center">
+                <Star className="text-white h-4 w-4 fill-current" />
+                <span className="text-white ml-1 font-sans font-semibold">
                   Popular
                 </span>
               </div>
@@ -191,10 +191,10 @@ export function Pricing({
                     variant: "outline",
                   }),
                   "group relative w-full gap-2 overflow-hidden text-lg font-semibold tracking-tighter",
-                  "transform-gpu ring-offset-current transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-1 hover:bg-primary hover:text-primary-foreground",
+                  "transform-gpu ring-offset-current transition-all duration-300 ease-out hover:ring-2 hover:ring-blue-900 hover:ring-offset-1",
                   plan.isPopular
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-background text-foreground"
+                    ? "bg-gradient-to-r from-blue-900 to-purple-900 text-white border-0 hover:from-blue-800 hover:to-purple-800"
+                    : "bg-background text-foreground hover:bg-blue-900 hover:text-white"
                 )}
               >
                 {plan.buttonText}
