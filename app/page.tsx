@@ -446,7 +446,7 @@ function CTASection() {
 
   return (
 
-    <div className="w-full py-20 bg-gradient-to-r from-blue-900 to-purple-900 text-white">
+    <div className="w-full py-20 bg-gradient-to-r from-blue-900 to-purple-900 text-white dark:bg-gradient-to-b dark:from-black dark:to-purple-950">
 
       <div className="container mx-auto px-4">
 
@@ -526,7 +526,7 @@ function Footer() {
 
   return (
 
-    <footer className="w-full py-12 bg-muted/30 border-t">
+    <footer className="w-full py-12 bg-muted/30 dark:bg-black border-t">
 
       <div className="container mx-auto px-4">
 

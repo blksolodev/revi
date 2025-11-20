@@ -643,8 +643,8 @@ export const SignInPage = ({ className }: SignInPageProps) => {
                     className="space-y-6 text-center"
                   >
                     <div className="space-y-1">
-                      <h1 className="text-[2.5rem] font-bold leading-[1.1] tracking-tight text-white">Welcome Developer</h1>
-                      <p className="text-[1.8rem] text-white/70 font-light">Your sign in component</p>
+                      <h1 className="text-[2.5rem] font-bold leading-[1.1] tracking-tight text-white">Welcome to Revi</h1>
+                      <p className="text-[1.8rem] text-white/70 font-light">Sign Up Here </p>
                     </div>
 
 
