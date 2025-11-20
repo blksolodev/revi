@@ -121,7 +121,7 @@ export function Pricing({
             }}
             className={cn(
               `rounded-2xl border-[1px] p-6 bg-background text-center lg:flex lg:flex-col lg:justify-center relative`,
-              plan.isPopular ? "border-primary border-2" : "border-border",
+              plan.isPopular ? "border-blue-900 border-2" : "border-border",
               "flex flex-col",
               !plan.isPopular && "mt-5",
               index === 0 || index === 2
@@ -176,7 +176,7 @@ export function Pricing({
               <ul className="mt-5 gap-2 flex flex-col">
                 {plan.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
+                    <Check className="h-4 w-4 text-blue-900 mt-1 flex-shrink-0" />
                     <span className="text-left">{feature}</span>
                   </li>
                 ))}
