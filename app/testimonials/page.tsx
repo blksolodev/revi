@@ -88,7 +88,7 @@ export default function TestimonialsPage() {
             className="flex flex-col items-center justify-center max-w-[540px] mx-auto"
           >
             <div className="flex justify-center">
-              <div className="border-2 py-1 px-4 rounded-lg bg-purple-600 text-white border-transparent">Testimonials</div>
+              <div className="border-2 py-1 px-4 rounded-lg bg-gradient-to-r from-blue-900 to-purple-900 text-white border-transparent">Testimonials</div>
             </div>
 
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tighter mt-5">
@@ -116,12 +116,12 @@ export default function TestimonialsPage() {
       </section>
 
       <div className="container mx-auto px-4 py-12">
-        <div className="text-center max-w-3xl mx-auto bg-purple-600 text-white rounded-2xl p-8">
+        <div className="text-center max-w-3xl mx-auto bg-gradient-to-r from-blue-900 to-purple-900 text-white rounded-2xl p-8">
           <h3 className="text-2xl font-bold mb-4">Join thousands of happy customers</h3>
           <p className="mb-6 opacity-90">
             Start your free trial today and see why businesses choose Revi for their AI needs.
           </p>
-          <Button size="lg" variant="secondary" className="bg-white text-purple-600 hover:bg-gray-100" asChild>
+          <Button size="lg" variant="secondary" className="bg-white text-blue-900 hover:bg-gray-100" asChild>
             <Link href="/pricing">
               Get Started Free
             </Link>
