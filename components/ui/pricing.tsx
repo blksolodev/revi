@@ -69,8 +69,8 @@ export function Pricing({
   };
 
   return (
-    <div className="container py-20">
-      <div className="text-center space-y-4 mb-12">
+    <div className="container py-8">
+      <div className="text-center space-y-4 mb-8">
         <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
           {title}
         </h2>
@@ -79,7 +79,7 @@ export function Pricing({
         </p>
       </div>
 
-      <div className="flex justify-center mb-10">
+      <div className="flex justify-center mb-8">
         <label className="relative inline-flex items-center cursor-pointer">
           <Label>
             <Switch
@@ -91,7 +91,7 @@ export function Pricing({
           </Label>
         </label>
         <span className="ml-2 font-semibold">
-          Annual billing <span className="text-primary">(Save 20%)</span>
+          Pay setup upfront <span className="text-primary">(Save 10%)</span>
         </span>
       </div>
 
@@ -170,7 +170,7 @@ export function Pricing({
               </div>
 
               <p className="text-xs leading-5 text-muted-foreground">
-                {isMonthly ? "billed monthly" : "billed annually"}
+                {plan.period}
               </p>
 
               <ul className="mt-5 gap-2 flex flex-col">
