@@ -1,18 +1,21 @@
 "use client";
 
 import { buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { Check, Star } from "lucide-react";
+import { Check, Star, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useState, useRef } from "react";
 import confetti from "canvas-confetti";
 import NumberFlow from "@number-flow/react";
+import { getStripe } from "@/lib/stripe-client";
 
 interface PricingPlan {
+  id?: string;
   name: string;
   price: string;
   yearlyPrice: string;
@@ -36,6 +39,7 @@ export function Pricing({
   description = "Choose the plan that works for you\nAll plans include access to our platform, lead generation tools, and dedicated support.",
 }: PricingProps) {
   const [isMonthly, setIsMonthly] = useState(true);
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const switchRef = useRef<HTMLButtonElement>(null);
 
@@ -65,6 +69,42 @@ export function Pricing({
         startVelocity: 30,
         shapes: ["circle"],
       });
+    }
+  };
+
+  const handleCheckout = async (planId: string) => {
+    if (!planId) return;
+
+    setLoadingPlan(planId);
+
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          planId,
+          billingCycle: isMonthly ? 'monthly' : 'upfront',
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.sessionId) {
+        const stripe = await getStripe();
+        if (stripe) {
+          await (stripe as any).redirectToCheckout({ sessionId: data.sessionId });
+        }
+      } else {
+        console.error('Checkout error:', data.error);
+        alert('Failed to create checkout session. Please try again.');
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      alert('Failed to create checkout session. Please try again.');
+    } finally {
+      setLoadingPlan(null);
     }
   };
 
@@ -184,21 +224,44 @@ export function Pricing({
 
               <hr className="w-full my-4" />
 
-              <Link
-                href={plan.href}
-                className={cn(
-                  buttonVariants({
-                    variant: "outline",
-                  }),
-                  "group relative w-full gap-2 overflow-hidden text-lg font-semibold tracking-tighter",
-                  "transform-gpu ring-offset-current transition-all duration-300 ease-out hover:ring-2 hover:ring-blue-900 hover:ring-offset-1",
-                  plan.isPopular
-                    ? "bg-gradient-to-r from-blue-900 to-purple-900 text-white border-0 hover:from-blue-800 hover:to-purple-800"
-                    : "bg-background text-foreground hover:bg-blue-900 hover:text-white"
-                )}
-              >
-                {plan.buttonText}
-              </Link>
+              {plan.id ? (
+                <Button
+                  onClick={() => handleCheckout(plan.id!)}
+                  disabled={loadingPlan !== null}
+                  className={cn(
+                    "group relative w-full gap-2 overflow-hidden text-lg font-semibold tracking-tighter",
+                    "transform-gpu ring-offset-current transition-all duration-300 ease-out hover:ring-2 hover:ring-blue-900 hover:ring-offset-1",
+                    plan.isPopular
+                      ? "bg-gradient-to-r from-blue-900 to-purple-900 text-white border-0 hover:from-blue-800 hover:to-purple-800"
+                      : "bg-background text-foreground hover:bg-blue-900 hover:text-white"
+                  )}
+                >
+                  {loadingPlan === plan.id ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    plan.buttonText
+                  )}
+                </Button>
+              ) : (
+                <Link
+                  href={plan.href}
+                  className={cn(
+                    buttonVariants({
+                      variant: "outline",
+                    }),
+                    "group relative w-full gap-2 overflow-hidden text-lg font-semibold tracking-tighter",
+                    "transform-gpu ring-offset-current transition-all duration-300 ease-out hover:ring-2 hover:ring-blue-900 hover:ring-offset-1",
+                    plan.isPopular
+                      ? "bg-gradient-to-r from-blue-900 to-purple-900 text-white border-0 hover:from-blue-800 hover:to-purple-800"
+                      : "bg-background text-foreground hover:bg-blue-900 hover:text-white"
+                  )}
+                >
+                  {plan.buttonText}
+                </Link>
+              )}
               <p className="mt-6 text-xs leading-5 text-muted-foreground">
                 {plan.description}
               </p>

@@ -8,6 +8,7 @@ import { TestimonialsColumn } from "@/components/ui/testimonials-column";
 
 const reviPlans = [
   {
+    id: "starter",
     name: "STARTER",
     price: "1499",
     yearlyPrice: "1349",
@@ -30,6 +31,7 @@ const reviPlans = [
     isPopular: false,
   },
   {
+    id: "professional",
     name: "PROFESSIONAL",
     price: "3749",
     yearlyPrice: "3374",
@@ -53,6 +55,7 @@ const reviPlans = [
     isPopular: true,
   },
   {
+    id: "enterprise",
     name: "ENTERPRISE",
     price: "7749",
     yearlyPrice: "6974",
