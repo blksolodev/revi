@@ -66,7 +66,7 @@ function Hero() {
 
             <Button variant="secondary" size="sm" className="gap-4 bg-gradient-to-r from-blue-900 to-purple-900 text-white border-0">
 
-              Introducing Revi AI <MoveRight className="w-4 h-4" />
+              Introducing Revi <MoveRight className="w-4 h-4" />
 
             </Button>
 
@@ -402,7 +402,7 @@ function FeaturesSection() {
 
   return (
 
-    <div className="w-full py-20 bg-background">
+    <div id="features" className="w-full py-20 bg-background">
 
       <div className="container mx-auto px-4">
 
@@ -550,7 +550,7 @@ function Footer() {
 
             <ul className="space-y-2 text-sm text-muted-foreground">
 
-              <li><Link href="/" className="hover:text-foreground">Features</Link></li>
+              <li><Link href="/#features" className="hover:text-foreground">Features</Link></li>
 
               <li><Link href="/pricing" className="hover:text-foreground">Pricing</Link></li>
 
