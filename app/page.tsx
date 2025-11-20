@@ -6,13 +6,13 @@ import { useEffect, useMemo, useState } from "react";
 
 import { motion } from "framer-motion";
 
-import { MoveRight, Bot, Calendar, Zap, BarChart, Shield, Clock } from "lucide-react";
+import { MoveRight, Bot, Calendar, Zap, BarChart, Shield, Sparkles, TrendingUp } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
 import DisplayCards from "@/components/ui/display-cards";
 
-import { Sparkles, TrendingUp } from "lucide-react";
+import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 
 import Link from "next/link";
 
@@ -290,79 +290,115 @@ function FeaturesSection() {
 
     {
 
-      icon: <Sparkles className="w-10 h-10 text-purple-600" />,
+      Icon: Sparkles,
 
-      title: "Custom Website Design",
+      name: "Custom Website Design",
 
-      description:
+      description: "Beautiful, mobile-responsive websites tailored to your brand and business goals. Every site is custom-built to reflect your unique identity and convert visitors into customers.",
 
-        "Beautiful, mobile-responsive websites tailored to your brand and business goals. Every site is custom-built to reflect your unique identity and convert visitors into customers.",
+      href: "#",
 
-    },
+      cta: "Learn more",
 
-    {
+      background: <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-purple-600/5 to-transparent" />,
 
-      icon: <Zap className="w-10 h-10 text-purple-600" />,
-
-      title: "Fast & SEO-Optimized",
-
-      description:
-
-        "Lightning-fast loading speeds and search engine optimization built in from day one. Get found on Google and provide an exceptional user experience that keeps visitors engaged.",
+      className: "lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3",
 
     },
 
     {
 
-      icon: <Shield className="w-10 h-10 text-purple-600" />,
+      Icon: Zap,
 
-      title: "Reliable & Secure",
+      name: "Fast & SEO-Optimized",
 
-      description:
+      description: "Lightning-fast loading speeds and search engine optimization built in from day one. Get found on Google and provide an exceptional user experience that keeps visitors engaged.",
 
-        "Professional hosting with 99.9% uptime, automatic backups, and enterprise-grade security. Your website is always online, always secure, and always working for your business.",
+      href: "#",
 
-    },
+      cta: "Learn more",
 
-    {
+      background: <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-600/5 to-transparent" />,
 
-      icon: <Bot className="w-10 h-10 text-purple-600" />,
-
-      title: "AI Chat Assistant",
-
-      description:
-
-        "Built-in AI chat that responds to visitors 24/7, answers questions, and qualifies leads automatically. Never miss an opportunity even when you're away from your desk.",
+      className: "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3",
 
     },
 
     {
 
-      icon: <Calendar className="w-10 h-10 text-purple-600" />,
+      Icon: Shield,
 
-      title: "Smart Booking System",
+      name: "Reliable & Secure",
 
-      description:
+      description: "Professional hosting with 99.9% uptime, automatic backups, and enterprise-grade security. Your website is always online, always secure, and always working for your business.",
 
-        "Let customers schedule appointments directly from your website. Automated reminders and calendar management save you time and reduce no-shows.",
+      href: "#",
+
+      cta: "Learn more",
+
+      background: <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 via-purple-500/5 to-transparent" />,
+
+      className: "lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4",
 
     },
 
     {
 
-      icon: <BarChart className="w-10 h-10 text-purple-600" />,
+      Icon: Bot,
 
-      title: "Analytics & Insights",
+      name: "AI Chat Assistant",
 
-      description:
+      description: "Built-in AI chat that responds to visitors 24/7, answers questions, and qualifies leads automatically. Never miss an opportunity even when you're away from your desk.",
 
-        "Track visitor behavior, conversion rates, and business metrics. Understand what's working and make data-driven decisions to grow your business online.",
+      href: "#",
+
+      cta: "Learn more",
+
+      background: <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 via-purple-600/5 to-transparent" />,
+
+      className: "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-2",
+
+    },
+
+    {
+
+      Icon: Calendar,
+
+      name: "Smart Booking System",
+
+      description: "Let customers schedule appointments directly from your website. Automated reminders and calendar management save you time and reduce no-shows.",
+
+      href: "#",
+
+      cta: "Learn more",
+
+      background: <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-purple-600/5 to-transparent" />,
+
+      className: "lg:col-start-3 lg:col-end-3 lg:row-start-2 lg:row-end-3",
+
+    },
+
+    {
+
+      Icon: BarChart,
+
+      name: "Analytics & Insights",
+
+      description: "Track visitor behavior, conversion rates, and business metrics. Understand what's working and make data-driven decisions to grow your business online.",
+
+      href: "#",
+
+      cta: "Learn more",
+
+      background: <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-violet-600/5 to-transparent" />,
+
+      className: "lg:col-start-3 lg:col-end-3 lg:row-start-3 lg:row-end-4",
 
     },
 
   ];
 
- 
+
 
   return (
 
@@ -386,37 +422,15 @@ function FeaturesSection() {
 
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <BentoGrid className="lg:grid-rows-3 md:grid-cols-3 grid-cols-1">
 
-          {features.map((feature, index) => (
+          {features.map((feature) => (
 
-            <motion.div
-
-              key={index}
-
-              initial={{ opacity: 0, y: 20 }}
-
-              whileInView={{ opacity: 1, y: 0 }}
-
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-
-              viewport={{ once: true }}
-
-              className="p-6 rounded-2xl border bg-card hover:shadow-lg transition-shadow"
-
-            >
-
-              <div className="mb-4">{feature.icon}</div>
-
-              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-
-              <p className="text-muted-foreground">{feature.description}</p>
-
-            </motion.div>
+            <BentoCard key={feature.name} {...feature} />
 
           ))}
 
-        </div>
+        </BentoGrid>
 
       </div>
 
