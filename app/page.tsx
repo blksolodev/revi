@@ -11,7 +11,7 @@ import Link from "next/link";
 function Hero() {
   const [titleNumber, setTitleNumber] = useState(0);
   const titles = useMemo(
-    () => ["modern", "AI-powered", "conversion-focused", "automated", "professional"],
+    () => ["smarter", "faster", "better", "automated", "AI-powered"],
     []
   );
 
@@ -37,18 +37,13 @@ function Hero() {
           </div>
           <div className="flex gap-4 flex-col">
             <h1 className="text-5xl md:text-7xl max-w-4xl tracking-tighter text-center font-regular">
-              <span className="text-primary">We build</span>
+              <span className="text-primary">Make your website</span>
               <span className="relative flex w-full justify-center overflow-hidden text-center md:pb-4 md:pt-1">
                 &nbsp;
                 {titles.map((title, index) => (
                   <motion.span
                     key={index}
-                    className="absolute font-semibold bg-gradient-to-r from-blue-900 to-purple-900"
-                    style={{
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      backgroundClip: 'text',
-                    }}
+                    className="absolute font-semibold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent"
                     initial={{ opacity: 0, y: "-100" }}
                     transition={{ type: "spring", stiffness: 50 }}
                     animate={
@@ -67,23 +62,24 @@ function Hero() {
                   </motion.span>
                 ))}
               </span>
-              <span className="text-foreground">websites</span>
+              <span className="text-foreground">with AI</span>
             </h1>
 
             <p className="text-lg md:text-xl leading-relaxed tracking-tight text-muted-foreground max-w-2xl text-center">
-              Custom websites for small businesses with built-in AI features. From AI chat assistants to
-              automated booking systems, we create websites that work for you 24/7 and turn visitors into customers.
+              Revi helps businesses dramatically improve their websites through intelligent AI enhancements.
+              Deploy AI agents that respond instantly to visitors, book appointments automatically, and optimize
+              your site 24/7 so you never miss a customer.
             </p>
           </div>
           <div className="flex flex-row gap-3">
-            <Button size="lg" className="gap-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700" asChild>
+            <Button size="lg" className="gap-4" asChild>
               <Link href="/pricing">
-                Get Started <MoveRight className="w-4 h-4" />
+                Try Revi Free <MoveRight className="w-4 h-4" />
               </Link>
             </Button>
             <Button size="lg" className="gap-4" variant="outline" asChild>
               <Link href="/signin">
-                View Our Work <Calendar className="w-4 h-4" />
+                Book a Demo <Calendar className="w-4 h-4" />
               </Link>
             </Button>
           </div>
@@ -97,9 +93,9 @@ function DisplayCardsSection() {
   const reviCards = [
     {
       icon: <Bot className="size-4 text-blue-300" />,
-      title: "Custom Design",
-      description: "Tailored to your brand",
-      date: "Mobile-responsive",
+      title: "AI Website Agent",
+      description: "Instant customer responses",
+      date: "Available 24/7",
       iconClassName: "text-blue-500",
       titleClassName: "text-blue-500",
       className:
@@ -107,9 +103,9 @@ function DisplayCardsSection() {
     },
     {
       icon: <Calendar className="size-4 text-purple-300" />,
-      title: "AI Integration",
-      description: "Smart chat & booking",
-      date: "Built-in automation",
+      title: "Smart Booking",
+      description: "Automated appointments",
+      date: "Zero manual work",
       iconClassName: "text-purple-500",
       titleClassName: "text-purple-500",
       className:
@@ -117,9 +113,9 @@ function DisplayCardsSection() {
     },
     {
       icon: <TrendingUp className="size-4 text-green-300" />,
-      title: "Growth Tools",
-      description: "SEO & Analytics",
-      date: "Conversion focused",
+      title: "AI Optimization",
+      description: "Continuous improvements",
+      date: "Real-time insights",
       iconClassName: "text-green-500",
       titleClassName: "text-green-500",
       className:
@@ -132,12 +128,10 @@ function DisplayCardsSection() {
       <div className="container mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Complete website solutions
-            </span> for small business
+            Three powerful tools, one platform
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Professional websites with AI features that help you attract customers, automate tasks, and grow your business
+            Everything you need to transform your website into an AI-powered customer engagement machine
           </p>
         </div>
         <div className="flex justify-center py-10">
@@ -151,40 +145,40 @@ function DisplayCardsSection() {
 function FeaturesSection() {
   const features = [
     {
-      icon: <Sparkles className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent" />,
-      title: "Custom Website Design",
+      icon: <Bot className="w-10 h-10 text-primary" />,
+      title: "AI Website Agents",
       description:
-        "Beautiful, mobile-responsive websites tailored to your brand and business goals. Every site is custom-built to reflect your unique identity and convert visitors into customers.",
+        "Deploy intelligent AI agents that instantly respond to visitors, answer questions, and guide customers through your site. Never miss a lead again with 24/7 automated assistance.",
     },
     {
-      icon: <Bot className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent" />,
-      title: "AI Chat Integration",
+      icon: <Calendar className="w-10 h-10 text-primary" />,
+      title: "AI Appointment Assistant",
       description:
-        "Built-in AI assistants that answer customer questions instantly, qualify leads, and provide support 24/7. Never miss an opportunity even when you're away.",
+        "Automatically schedule appointments, manage calendars, and send reminders. Your AI assistant handles all the coordination while you focus on serving customers.",
     },
     {
-      icon: <Calendar className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent" />,
-      title: "Automated Booking System",
+      icon: <Zap className="w-10 h-10 text-primary" />,
+      title: "AI Optimization Tools",
       description:
-        "Let customers schedule appointments directly from your website. Our AI handles availability, sends reminders, and manages your calendar automatically.",
+        "Get real-time insights and recommendations to improve your website performance. Our AI audits your site continuously and provides actionable improvement suggestions.",
     },
     {
-      icon: <Zap className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent" />,
-      title: "Fast & SEO-Optimized",
+      icon: <MessageSquare className="w-10 h-10 text-primary" />,
+      title: "24/7 Communication",
       description:
-        "Lightning-fast loading speeds and search engine optimization built in from day one. Get found on Google and provide an exceptional user experience.",
+        "Keep customers engaged even when your team is unavailable. Automated responses ensure every visitor gets immediate attention and support.",
     },
     {
-      icon: <BarChart className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent" />,
-      title: "Analytics & Insights",
+      icon: <BarChart className="w-10 h-10 text-primary" />,
+      title: "Advanced Analytics",
       description:
-        "Track visitor behavior, conversion rates, and business metrics. Understand what's working and make data-driven decisions to grow your business.",
+        "Track visitor behavior, conversion rates, and AI performance. Make data-driven decisions with comprehensive analytics and reporting.",
     },
     {
-      icon: <Shield className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent" />,
-      title: "Secure & Reliable",
+      icon: <Shield className="w-10 h-10 text-primary" />,
+      title: "Enterprise Security",
       description:
-        "Enterprise-grade security, automatic backups, and 99.9% uptime. Your website is always online, always secure, and always working for your business.",
+        "Bank-grade encryption and security measures protect your data and your customers. SOC 2 compliant and GDPR ready.",
     },
   ];
 
@@ -193,10 +187,10 @@ function FeaturesSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Everything your small business needs
+            Everything you need to succeed
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Professional website building with AI features that work for you
+            Powerful AI features designed to help your business grow
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -222,35 +216,35 @@ function FeaturesSection() {
 
 function CTASection() {
   return (
-    <div className="w-full py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-purple-800 text-white">
+    <div className="w-full py-20 bg-primary text-primary-foreground">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            Ready to grow your business online?
+            Ready to transform your website?
           </h2>
           <p className="text-lg md:text-xl mb-8 opacity-90">
-            Let us build you a professional website with AI features that attract customers,
-            automate your workflow, and help your small business thrive online.
+            Join thousands of businesses using Revi to automate customer engagement,
+            boost conversions, and never miss an opportunity.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
               variant="secondary"
-              className="gap-2 bg-white text-blue-600 hover:bg-gray-100"
+              className="gap-2"
               asChild
             >
               <Link href="/pricing">
-                Get Your Website <MoveRight className="w-4 h-4" />
+                Start Free Trial <MoveRight className="w-4 h-4" />
               </Link>
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="gap-2 bg-transparent border-white text-white hover:bg-white hover:text-purple-600"
+              className="gap-2 bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
               asChild
             >
               <Link href="/signin">
-                See Pricing <Calendar className="w-4 h-4" />
+                Book a Demo <Calendar className="w-4 h-4" />
               </Link>
             </Button>
           </div>
@@ -266,9 +260,9 @@ function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="font-bold text-lg mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Revi</h3>
+            <h3 className="font-bold text-lg mb-4">Revi</h3>
             <p className="text-sm text-muted-foreground">
-              Professional websites for small businesses with built-in AI features.
+              AI-powered website enhancement platform for modern businesses.
             </p>
           </div>
           <div>
