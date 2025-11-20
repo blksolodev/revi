@@ -158,7 +158,7 @@ function Hero() {
 
               <Link href="/work">
 
-                See Our Work <Calendar className="w-4 h-4" />
+                Discover More <Calendar className="w-4 h-4" />
 
               </Link>
 
