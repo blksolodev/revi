@@ -156,7 +156,7 @@ function Hero() {
 
             <Button size="lg" className="gap-4" variant="outline" asChild>
 
-              <Link href="/signin">
+              <Link href="/work">
 
                 See Our Work <Calendar className="w-4 h-4" />
 
