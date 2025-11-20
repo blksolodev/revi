@@ -363,10 +363,10 @@ const AnimatedNavLink = ({ href, children }: { href: string; children: React.Rea
   const textSizeClass = 'text-sm';
 
   return (
-    <a href={href} className={`group relative inline-block overflow-hidden h-5 flex items-center ${textSizeClass}`}>
-      <div className="flex flex-col transition-transform duration-400 ease-out transform group-hover:-translate-y-1/2">
-        <span className={defaultTextColor}>{children}</span>
-        <span className={hoverTextColor}>{children}</span>
+    <a href={href} className={`group relative inline-block overflow-hidden ${textSizeClass}`} style={{ height: '1.25rem' }}>
+      <div className="flex flex-col transition-transform duration-400 ease-out transform group-hover:-translate-y-full">
+        <span className={`${defaultTextColor} leading-5`}>{children}</span>
+        <span className={`${hoverTextColor} leading-5`}>{children}</span>
       </div>
     </a>
   );
@@ -402,12 +402,12 @@ function MiniNavbar() {
   }, [isOpen]);
 
   const logoElement = (
-    <div className="relative w-5 h-5 flex items-center justify-center">
-    <span className="absolute w-1.5 h-1.5 rounded-full bg-gray-200 top-0 left-1/2 transform -translate-x-1/2 opacity-80"></span>
-    <span className="absolute w-1.5 h-1.5 rounded-full bg-gray-200 left-0 top-1/2 transform -translate-y-1/2 opacity-80"></span>
-    <span className="absolute w-1.5 h-1.5 rounded-full bg-gray-200 right-0 top-1/2 transform -translate-y-1/2 opacity-80"></span>
-    <span className="absolute w-1.5 h-1.5 rounded-full bg-gray-200 bottom-0 left-1/2 transform -translate-x-1/2 opacity-80"></span>
- </div>
+    <Link href="/" className="relative w-5 h-5 flex items-center justify-center cursor-pointer group">
+      <span className="absolute w-1.5 h-1.5 rounded-full bg-gray-200 top-0 left-1/2 transform -translate-x-1/2 opacity-80 group-hover:opacity-100 transition-opacity"></span>
+      <span className="absolute w-1.5 h-1.5 rounded-full bg-gray-200 left-0 top-1/2 transform -translate-y-1/2 opacity-80 group-hover:opacity-100 transition-opacity"></span>
+      <span className="absolute w-1.5 h-1.5 rounded-full bg-gray-200 right-0 top-1/2 transform -translate-y-1/2 opacity-80 group-hover:opacity-100 transition-opacity"></span>
+      <span className="absolute w-1.5 h-1.5 rounded-full bg-gray-200 bottom-0 left-1/2 transform -translate-x-1/2 opacity-80 group-hover:opacity-100 transition-opacity"></span>
+    </Link>
   );
 
   const navLinksData = [
@@ -418,7 +418,7 @@ function MiniNavbar() {
 
   const loginButtonElement = (
     <button className="px-4 py-2 sm:px-3 text-xs sm:text-sm border border-[#333] bg-[rgba(31,31,31,0.62)] text-gray-300 rounded-full hover:border-white/50 hover:text-white transition-colors duration-200 w-full sm:w-auto">
-      LogIn
+      Log In
     </button>
   );
 
@@ -431,7 +431,7 @@ function MiniNavbar() {
                      transition-all duration-300 ease-out
                      group-hover:opacity-60 group-hover:blur-xl group-hover:-m-3"></div>
        <button className="relative z-10 px-4 py-2 sm:px-3 text-xs sm:text-sm font-semibold text-black bg-gradient-to-br from-gray-100 to-gray-300 rounded-full hover:from-gray-200 hover:to-gray-400 transition-all duration-200 w-full sm:w-auto">
-         Signup
+         Sign Up
        </button>
     </div>
   );
@@ -499,10 +499,17 @@ export const SignInPage = ({ className }: SignInPageProps) => {
   const [initialCanvasVisible, setInitialCanvasVisible] = useState(true);
   const [reverseCanvasVisible, setReverseCanvasVisible] = useState(false);
 
-  const handleEmailSubmit = (e: React.FormEvent) => {
+  const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      setStep("code");
+      const { signInWithEmail } = await import('@/app/actions/auth');
+      const result = await signInWithEmail(email);
+
+      if (result?.error) {
+        alert('Error sending code: ' + result.error);
+      } else {
+        setStep("code");
+      }
     }
   };
 
@@ -515,7 +522,7 @@ export const SignInPage = ({ className }: SignInPageProps) => {
     }
   }, [step]);
 
-  const handleCodeChange = (index: number, value: string) => {
+  const handleCodeChange = async (index: number, value: string) => {
     if (value.length <= 1) {
       const newCode = [...code];
       newCode[index] = value;
@@ -530,18 +537,33 @@ export const SignInPage = ({ className }: SignInPageProps) => {
       if (index === 5 && value) {
         const isComplete = newCode.every(digit => digit.length === 1);
         if (isComplete) {
-          // First show the new reverse canvas
-          setReverseCanvasVisible(true);
+          // Verify the OTP code
+          const fullCode = newCode.join('');
+          const { verifyOtp } = await import('@/app/actions/auth');
+          const result = await verifyOtp(email, fullCode);
 
-          // Then hide the original canvas after a small delay
-          setTimeout(() => {
-            setInitialCanvasVisible(false);
-          }, 50);
+          if (result?.error) {
+            alert('Invalid code. Please try again.');
+            setCode(["", "", "", "", "", ""]);
+            codeInputRefs.current[0]?.focus();
+          } else {
+            // First show the new reverse canvas
+            setReverseCanvasVisible(true);
 
-          // Transition to success screen after animation
-          setTimeout(() => {
-            setStep("success");
-          }, 2000);
+            // Then hide the original canvas after a small delay
+            setTimeout(() => {
+              setInitialCanvasVisible(false);
+            }, 50);
+
+            // Transition to success screen after animation
+            setTimeout(() => {
+              setStep("success");
+              // Redirect to dashboard after success
+              setTimeout(() => {
+                window.location.href = '/dashboard';
+              }, 1500);
+            }, 2000);
+          }
         }
       }
     }
@@ -562,17 +584,17 @@ export const SignInPage = ({ className }: SignInPageProps) => {
   };
 
   return (
-    <div className={cn("flex w-[100%] flex-col min-h-screen bg-black relative", className)}>
+    <div className={cn("flex w-[100%] flex-col min-h-screen bg-gradient-to-b from-black via-black to-purple-950 relative", className)}>
       <div className="absolute inset-0 z-0">
         {/* Initial canvas (forward animation) */}
         {initialCanvasVisible && (
           <div className="absolute inset-0">
             <CanvasRevealEffect
               animationSpeed={3}
-              containerClassName="bg-black"
+              containerClassName="bg-transparent"
               colors={[
-                [255, 255, 255],
-                [255, 255, 255],
+                [88, 28, 135],
+                [59, 7, 100],
               ]}
               dotSize={6}
               reverse={false}
@@ -585,10 +607,10 @@ export const SignInPage = ({ className }: SignInPageProps) => {
           <div className="absolute inset-0">
             <CanvasRevealEffect
               animationSpeed={4}
-              containerClassName="bg-black"
+              containerClassName="bg-transparent"
               colors={[
-                [255, 255, 255],
-                [255, 255, 255],
+                [88, 28, 135],
+                [59, 7, 100],
               ]}
               dotSize={6}
               reverse={true}
@@ -596,7 +618,7 @@ export const SignInPage = ({ className }: SignInPageProps) => {
           </div>
         )}
 
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,0,0,1)_0%,_transparent_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_rgba(88,28,135,0.3)_0%,_transparent_60%)]" />
         <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-black to-transparent" />
       </div>
 
@@ -627,7 +649,14 @@ export const SignInPage = ({ className }: SignInPageProps) => {
 
 
                     <div className="space-y-4">
-                      <button className="backdrop-blur-[2px] w-full flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-full py-3 px-4 transition-colors">
+                      <button
+                        onClick={async () => {
+                          const { signInWithGoogle } = await import('@/app/actions/auth');
+                          await signInWithGoogle();
+                        }}
+                        type="button"
+                        className="backdrop-blur-[2px] w-full flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-full py-3 px-4 transition-colors"
+                      >
                         <span className="text-lg">G</span>
                         <span>Sign in with Google</span>
                       </button>
@@ -645,7 +674,7 @@ export const SignInPage = ({ className }: SignInPageProps) => {
                             placeholder="info@gmail.com"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full backdrop-blur-[1px] text-white border-1 border-white/10 rounded-full py-3 px-4 focus:outline-none focus:border focus:border-white/30 text-center"
+                            className="w-full backdrop-blur-[1px] text-gray-900 placeholder:text-gray-500 border-1 border-white/10 rounded-full py-3 px-4 focus:outline-none focus:border focus:border-white/30 text-center bg-white/90"
                             required
                           />
                           <button
