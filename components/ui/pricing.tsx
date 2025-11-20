@@ -91,7 +91,7 @@ export function Pricing({
           </Label>
         </label>
         <span className="ml-2 font-semibold">
-          Pay setup upfront <span className="bg-gradient-to-r from-blue-900 to-purple-900 bg-clip-text text-transparent font-semibold">(Save 10%)</span>
+          Pay setup upfront <span className="text-purple-600 font-semibold">(Save 10%)</span>
         </span>
       </div>
 
@@ -121,7 +121,7 @@ export function Pricing({
             }}
             className={cn(
               `rounded-2xl border-[1px] p-6 bg-background text-center lg:flex lg:flex-col lg:justify-center relative`,
-              plan.isPopular ? "border-blue-900 border-2" : "border-border",
+              plan.isPopular ? "border-purple-600 border-2" : "border-border",
               "flex flex-col",
               !plan.isPopular && "mt-5",
               index === 0 || index === 2
@@ -132,7 +132,7 @@ export function Pricing({
             )}
           >
             {plan.isPopular && (
-              <div className="absolute top-0 right-0 bg-gradient-to-r from-blue-900 to-purple-900 py-0.5 px-2 rounded-bl-xl rounded-tr-xl flex items-center">
+              <div className="absolute top-0 right-0 bg-purple-600 py-0.5 px-2 rounded-bl-xl rounded-tr-xl flex items-center">
                 <Star className="text-white h-4 w-4 fill-current" />
                 <span className="text-white ml-1 font-sans font-semibold">
                   Popular
@@ -176,7 +176,7 @@ export function Pricing({
               <ul className="mt-5 gap-2 flex flex-col">
                 {plan.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-blue-900 mt-1 flex-shrink-0" />
+                    <Check className="h-4 w-4 text-purple-600 mt-1 flex-shrink-0" />
                     <span className="text-left">{feature}</span>
                   </li>
                 ))}
@@ -191,10 +191,10 @@ export function Pricing({
                     variant: "outline",
                   }),
                   "group relative w-full gap-2 overflow-hidden text-lg font-semibold tracking-tighter",
-                  "transform-gpu ring-offset-current transition-all duration-300 ease-out hover:ring-2 hover:ring-blue-900 hover:ring-offset-1",
+                  "transform-gpu ring-offset-current transition-all duration-300 ease-out hover:ring-2 hover:ring-purple-600 hover:ring-offset-1",
                   plan.isPopular
-                    ? "bg-gradient-to-r from-blue-900 to-purple-900 text-white border-0 hover:from-blue-800 hover:to-purple-800"
-                    : "bg-background text-foreground hover:bg-blue-900 hover:text-white"
+                    ? "bg-purple-600 text-white border-0 hover:bg-purple-700"
+                    : "bg-background text-foreground hover:bg-purple-600 hover:text-white"
                 )}
               >
                 {plan.buttonText}
