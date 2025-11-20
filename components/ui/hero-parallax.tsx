@@ -128,12 +128,12 @@ export const Header = () => {
   return (
     <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-0">
       <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
-        Built with the same tools <br /> powering leading brands
+        This level of quality <br /> for your business
       </h1>
       <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
-        We use industry-leading technologies and frameworks trusted by successful companies worldwide.
-        Your website will be built with the same professional tools and modern tech stack that powers
-        these innovative platforms.
+        Professional websites built with modern technology. We create digital experiences
+        that stand alongside the best in the industry, bringing enterprise-level quality
+        to businesses of all sizes.
       </p>
     </div>
   );
