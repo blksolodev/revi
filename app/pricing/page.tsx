@@ -8,7 +8,6 @@ import { TestimonialsColumn } from "@/components/ui/testimonials-column";
 
 const reviPlans = [
   {
-    id: "starter",
     name: "STARTER",
     price: "1499",
     yearlyPrice: "1349",
@@ -27,11 +26,10 @@ const reviPlans = [
     ],
     description: "Perfect for small businesses and startups",
     buttonText: "Get Started",
-    href: "/signin",
+    href: "https://buy.stripe.com/6oU14n2WK0zI4a72Yr3ZK01", // Starter payment link
     isPopular: false,
   },
   {
-    id: "professional",
     name: "PROFESSIONAL",
     price: "3749",
     yearlyPrice: "3374",
@@ -51,11 +49,10 @@ const reviPlans = [
     ],
     description: "Ideal for growing businesses with advanced needs",
     buttonText: "Get Started",
-    href: "/signin",
+    href: "https://buy.stripe.com/6oU9ATgNAbemayv2Yr3ZK00", // Professional payment link
     isPopular: true,
   },
   {
-    id: "enterprise",
     name: "ENTERPRISE",
     price: "7749",
     yearlyPrice: "6974",
@@ -75,8 +72,8 @@ const reviPlans = [
       "→ SLA guarantee",
     ],
     description: "For large organizations with complex requirements",
-    buttonText: "Contact Sales",
-    href: "/signin",
+    buttonText: "Get Started",
+    href: "https://buy.stripe.com/4gM6oH68WaaicGD6aD3ZK02", // Enterprise payment link
     isPopular: false,
   },
 ];

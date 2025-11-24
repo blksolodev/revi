@@ -1,7 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
-import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import Stripe from 'stripe';
+
+async function notifyCheckout(session: Stripe.Checkout.Session, subscription?: Stripe.Subscription) {
+  const webhookUrl = process.env.NOTIFY_CHECKOUT_WEBHOOK_URL;
+  if (!webhookUrl) return;
+
+  try {
+    const currency = session.currency || 'usd';
+    const amount = session.amount_total
+      ? (session.amount_total / 100).toFixed(2)
+      : '0.00';
+
+    const lines = [
+      'New checkout completed:',
+      `Plan: ${session.metadata?.plan_id || 'unknown'} (${session.metadata?.billing_cycle || 'unknown'})`,
+      `Amount: ${currency.toUpperCase()} ${amount}`,
+      `Email: ${session.customer_details?.email || 'unknown'}`,
+      `Subscription: ${subscription?.id || (session.subscription as string) || 'n/a'}`,
+      `Customer: ${(session.customer as string) || 'n/a'}`,
+      `Session: ${session.id}`,
+    ];
+
+    await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: lines.join('\n') }),
+    });
+  } catch (err) {
+    console.error('Checkout notification failed:', err);
+  }
+}
 
 export async function POST(request: NextRequest) {
   const body = await request.text();
@@ -24,7 +54,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
   }
 
-  const supabase = await createClient();
+  const supabase = createAdminClient();
 
   try {
     switch (event.type) {
@@ -37,14 +67,42 @@ export async function POST(request: NextRequest) {
             session.subscription as string
           ) as Stripe.Subscription;
 
+          // Try to find user by ID from metadata, or fallback to email matching
+          let userId = session.metadata?.user_id;
+
+          if (!userId && session.customer_details?.email) {
+            // Match by email if no user_id in metadata (for Payment Links)
+            const { data: authUser, error } = await supabase.auth.admin.listUsers();
+
+            if (authUser?.users) {
+              const matchedUser = authUser.users.find(
+                u => u.email === session.customer_details?.email
+              );
+              userId = matchedUser?.id;
+            }
+
+            // If still no match, log error
+            if (!userId) {
+              console.error('Could not match Stripe customer to Supabase user:', {
+                email: session.customer_details.email,
+                stripeCustomerId: session.customer as string,
+              });
+            }
+          }
+
+          // Extract plan_id from subscription metadata or product name
+          const planId = session.metadata?.plan_id ||
+                        subscription.items.data[0]?.price.product?.toString() ||
+                        'professional'; // Default to professional for now
+
           // Save subscription to database
           const sub = subscription as any;
           await supabase.from('subscriptions').insert({
-            user_id: session.metadata?.user_id,
+            user_id: userId,
             stripe_customer_id: session.customer as string,
             stripe_subscription_id: subscription.id,
-            plan_id: session.metadata?.plan_id,
-            billing_cycle: session.metadata?.billing_cycle,
+            plan_id: planId,
+            billing_cycle: session.metadata?.billing_cycle || 'monthly',
             status: subscription.status,
             current_period_start: new Date((sub.current_period_start || 0) * 1000).toISOString(),
             current_period_end: new Date((sub.current_period_end || 0) * 1000).toISOString(),
@@ -52,12 +110,15 @@ export async function POST(request: NextRequest) {
 
           // Log payment
           await supabase.from('payments').insert({
-            user_id: session.metadata?.user_id,
+            user_id: userId,
             stripe_payment_intent_id: session.payment_intent as string,
             amount: session.amount_total || 0,
             currency: session.currency || 'usd',
             status: 'succeeded',
           });
+
+          // Notify internal channel about the checkout (non-blocking)
+          notifyCheckout(session, subscription);
         }
 
         break;

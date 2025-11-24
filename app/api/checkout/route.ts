@@ -5,11 +5,7 @@ import { createClient } from '@/lib/supabase/server';
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient();
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-
-    if (authError || !user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const { data: { user } } = await supabase.auth.getUser();
 
     const { planId, billingCycle } = await request.json();
 
@@ -35,32 +31,34 @@ export async function POST(request: NextRequest) {
     }
 
     // Create or retrieve customer
-    let customerId: string;
+    let customerId: string | undefined;
 
-    // Check if customer already exists in Supabase
-    const { data: existingCustomer } = await supabase
-      .from('stripe_customers')
-      .select('stripe_customer_id')
-      .eq('user_id', user.id)
-      .single();
+    if (user) {
+      // Check if customer already exists in Supabase
+      const { data: existingCustomer } = await supabase
+        .from('stripe_customers')
+        .select('stripe_customer_id')
+        .eq('user_id', user.id)
+        .single();
 
-    if (existingCustomer?.stripe_customer_id) {
-      customerId = existingCustomer.stripe_customer_id;
-    } else {
-      // Create new Stripe customer
-      const customer = await stripe.customers.create({
-        email: user.email,
-        metadata: {
-          supabase_user_id: user.id,
-        },
-      });
-      customerId = customer.id;
+      if (existingCustomer?.stripe_customer_id) {
+        customerId = existingCustomer.stripe_customer_id;
+      } else {
+        // Create new Stripe customer tied to the Supabase user
+        const customer = await stripe.customers.create({
+          email: user.email,
+          metadata: {
+            supabase_user_id: user.id,
+          },
+        });
+        customerId = customer.id;
 
-      // Save to Supabase
-      await supabase.from('stripe_customers').insert({
-        user_id: user.id,
-        stripe_customer_id: customerId,
-      });
+        // Save to Supabase (RLS must allow this)
+        await supabase.from('stripe_customers').insert({
+          user_id: user.id,
+          stripe_customer_id: customerId,
+        });
+      }
     }
 
     // Create line items
@@ -114,14 +112,14 @@ export async function POST(request: NextRequest) {
 
     // Create checkout session
     const session = await stripe.checkout.sessions.create({
-      customer: customerId,
+      ...(customerId ? { customer: customerId } : {}),
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'subscription',
       success_url: `${request.headers.get('origin')}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${request.headers.get('origin')}/pricing`,
       metadata: {
-        user_id: user.id,
+        ...(user ? { user_id: user.id } : {}),
         plan_id: planId,
         billing_cycle: billingCycle,
       },
